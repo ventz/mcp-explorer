@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Explorer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header class="connection-bar">
+        <div class="connection-row">
+            <div class="url-group">
+                <input type="text" id="url-input" placeholder="MCP Server URL (e.g. http://localhost:3000/mcp)" list="url-history-list" autocomplete="off">
+                <datalist id="url-history-list"></datalist>
+            </div>
+            <div class="auth-group">
+                <select id="auth-type">
+                    <option value="none">No Auth</option>
+                    <option value="bearer">Bearer Token</option>
+                    <option value="header">Custom Header</option>
+                </select>
+                <input type="text" id="header-name" placeholder="Header name" class="auth-field hidden">
+                <input type="text" id="auth-value" placeholder="Token / Value" class="auth-field hidden">
+            </div>
+            <button id="connect-btn" class="btn btn-primary">Connect</button>
+            <span id="status-dot" class="status-dot disconnected" title="Disconnected"></span>
+        </div>
+    </header>
+
+    <nav id="tab-bar" class="tab-bar hidden">
+        <button class="tab active" data-tab="tools">Tools</button>
+        <button class="tab" data-tab="resources">Resources</button>
+        <button class="tab" data-tab="prompts">Prompts</button>
+    </nav>
+
+    <main id="main-content" class="main-content hidden">
+        <aside class="list-pane">
+            <div id="list-tools" class="list-panel"></div>
+            <div id="list-resources" class="list-panel hidden"></div>
+            <div id="list-prompts" class="list-panel hidden"></div>
+        </aside>
+        <section class="detail-pane">
+            <div id="detail-empty" class="detail-empty">
+                <p>Select an item from the left panel</p>
+            </div>
+            <div id="detail-content" class="detail-content hidden">
+                <h2 id="detail-name"></h2>
+                <p id="detail-description" class="detail-description"></p>
+                <form id="detail-form" class="detail-form hidden"></form>
+                <button id="detail-action" class="btn btn-primary detail-action hidden">Execute</button>
+                <div id="detail-result" class="detail-result hidden">
+                    <div class="result-header">
+                        <h3>Result</h3>
+                        <button id="result-toggle" class="btn btn-sm">Raw</button>
+                    </div>
+                    <pre id="result-output"></pre>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Parameter Store Slide-over -->
+    <button id="param-store-toggle" class="param-store-tab" title="Parameter Store">
+        Params <span id="param-store-count" class="param-count-badge">0</span>
+    </button>
+    <aside id="param-store-panel" class="param-store-panel hidden">
+        <div class="param-store-header">
+            <h3>Parameter Store</h3>
+            <div class="param-store-actions">
+                <button id="param-store-clear" class="btn btn-sm">Clear All</button>
+                <button id="param-store-close" class="btn btn-sm">Close</button>
+            </div>
+        </div>
+        <div id="param-store-list" class="param-store-list"></div>
+    </aside>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="/static/app.js"></script>
+</body>
+</html>
